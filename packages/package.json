@@ -11,7 +11,8 @@
         "build": "yarn build:admin && yarn build:store",
         "start:admin": "yarn workspace admin start",
         "start:store": "yarn workspace store start",
-        "start": "yarn start:admin & yarn start:store"
+        "start": "yarn start:admin & yarn start:store",
+        "dev": "yarn workspace admin dev & yarn workspace store dev"
     },
     "workspaces": [
         "packages/*",

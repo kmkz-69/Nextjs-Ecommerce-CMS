@@ -1,0 +1,27 @@
+{
+    "name": "mini_repo",
+    "version": "1.0.0",
+    "repository": "https://github.com/kmkz-69/Nextjs-Ecommerce-CMS",
+    "author": "Jason Michel YAWILHIT <67412667+kmkz-69@users.noreply.github.com>",
+    "license": "MIT",
+    "private": true,
+    "scripts": {
+        "build:admin": "yarn workspace admin build",
+        "build:store": "yarn workspace store build",
+        "build": "yarn build:admin && yarn build:store",
+        "start:admin": "yarn workspace admin start",
+        "start:store": "yarn workspace store start",
+        "start": "yarn start:admin & yarn start:store"
+    },
+    "workspaces": [
+        "packages/*",
+        "admin",
+        "store"
+    ],
+    "dependencies": {
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "next": "^14.2.3"
+    },
+    "packageManager": "yarn@4.2.1"
+}

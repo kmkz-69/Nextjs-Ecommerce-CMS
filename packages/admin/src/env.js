@@ -15,6 +15,14 @@ export const env = createEnv({
         "You forgot to change the default URL",
       ),
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
+    // GOOGLE
+    AUTH_GOOGLE_ID: z.string(),
+    AUTH_GOOGLE_SECRET: z.string(),
+    OAUTH2_REDIRECT_URI: z.string(),
+    //DISCORD
+    AUTH_DISCORD_ID: z.string(),
+    AUTH_DISCORD_SECRET: z.string(),
+    AUTH_DISCORD_REDIRECT: z.string(),
   },
 
   /**
@@ -35,6 +43,14 @@ export const env = createEnv({
     // Server-side env vars
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
+    //GOOGLE
+    AUTH_GOOGLE_ID: process.env.AUTH_GOOGLE_ID,
+    AUTH_GOOGLE_SECRET: process.env.AUTH_GOOGLE_SECRET,
+    OAUTH2_REDIRECT_URI: process.env.OAUTH2_REDIRECT_URI,
+    // DISCORD
+    AUTH_DISCORD_ID: process.env.AUTH_DISCORD_ID,
+    AUTH_DISCORD_SECRET: process.env.AUTH_DISCORD_SECRET,
+    PUBLIC_DISCORD_REDIRECT: process.env.PUBLIC_DISCORD_REDIRECT,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

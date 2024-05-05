@@ -1,5 +1,5 @@
 import { Lucia, TimeSpan } from "lucia";
-import { Google } from "arctic";
+import { Google, Discord } from "arctic";
 import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 import { sessions, users, type User as DbUser } from "@/servers/db/schema";
 import { db } from "./db";
@@ -7,7 +7,7 @@ import { env } from "@/env";
 
 const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);
 
-const lucia = new Lucia(adapter, {
+export const lucia = new Lucia(adapter, {
     getSessionAttributes: () => {
         return {}
     },
@@ -31,11 +31,18 @@ const lucia = new Lucia(adapter, {
     },
 })
 
-// export const google = new Google(
-//     env.AUTH_GOOGLE_ID,
-//     env.AUTH_GOOGLE_SECRET,
-  
-// );
+export const google = new Google(
+    env.AUTH_GOOGLE_ID,
+    env.AUTH_GOOGLE_SECRET,
+    env.OAUTH2_REDIRECT_URI
+);
+
+export const discord = new Discord(
+    env.AUTH_DISCORD_ID,
+    env.AUTH_DISCORD_SECRET,
+    env.AUTH_DISCORD_REDIRECT
+);
+
 
 declare module "lucia" {
     interface Register {

@@ -1,28 +1,28 @@
-import { auth } from "@clerk/nextjs";
+// import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
-import prisma from "@/lib/prismadb";
+// import prisma from "@/lib/prismadb";
 
 export default async function SetUpLayout({
   children,
 }: {
   children: React.ReactNode,
 }) {
-  const { userId } = auth();
+  // const { userId } = auth();
 
-  if (!userId) {
-    redirect("/sign-in")
-  };
+  // if (!userId) {
+  //   redirect("/sign-in")
+  // };
 
-  const store = await prisma.store.findFirst({
-    where: {
-      userId
-    }
-  });
+  // const store = await prisma.store.findFirst({
+  //   where: {
+  //     userId
+  //   }
+  // });
 
-  if (store) {
-    redirect(`/${store.id}`);
-  };
+  // if (store) {
+  //   redirect(`/${store.id}`);
+  // };
 
   return (
     <>

@@ -1,14 +1,13 @@
-import prisma from "@/lib/prismadb"
-import BillboardForm from "./components/billboard-form"
+import { eq } from "drizzle-orm";
+import BillboardForm from "./components/billboard-form";
+import { billboards } from "@/servers/db/schema";
+import { db } from "@/servers/db";
 
 export default async function BillboardPage({ params }:
   { params: { billboardId: string } }
 ) {
-  const billboard = await prisma.billboard.findUnique({
-    where: {
-      id: params.billboardId
-    }
-  })
+  const billboard = await db.select().from(billboards)
+    .where(eq(billboards.id, params.billboardId));
 
   return (
     <div className="flex flex-col">
@@ -18,3 +17,4 @@ export default async function BillboardPage({ params }:
     </div>
   )
 }
+

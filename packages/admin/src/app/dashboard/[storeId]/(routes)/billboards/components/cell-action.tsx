@@ -1,17 +1,12 @@
 "use client";
 
 import { useState } from "react";
-
 import axios from "axios";
-
 import { toast } from "sonner";
-
 import { useParams, useRouter } from "next/navigation";
-
-import { BillboardColumn } from "./columns";
-
 import { Copy, Edit, MoreHorizontal, Trash } from "lucide-react";
 
+import { BillboardColumn } from "./columns";
 import AlertModal from "@/components/modals/alert-modal";
 import {
   DropdownMenu,

@@ -1,25 +1,19 @@
 "use client";
 
 import { useState } from "react";
-
 import { useParams, useRouter } from "next/navigation";
-
 import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-import { Color } from "@prisma/client";
-
 import { Trash } from "lucide-react";
+import { toast } from "sonner"
 
 import Heading from "@/components/ui/heading";
-import ImageUpload from "@/components/ui/images-upload";
 import AlertModal from "@/components/modals/alert-modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { toast } from "sonner"
 
 import {
   Form,
@@ -29,10 +23,11 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form";
+import { Colors } from "@/servers/db/schema";
 
 
 interface ColorFormProps {
-  initialData: Color | null;
+  initialData?: Colors;
 }
 
 const formSchema = z.object({
@@ -56,13 +51,13 @@ export default function ColorForm({ initialData }: ColorFormProps) {
   const toastMesage = initialData ? "Color updated" : "Color created";
   const action = initialData ? "Save changes" : "Create";
 
-
   const form = useForm<ColorFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData || {
+    defaultValues: {
       name: "",
       value: ""
     }
+
   });
 
   const onSubmit = async (values: ColorFormValues) => {

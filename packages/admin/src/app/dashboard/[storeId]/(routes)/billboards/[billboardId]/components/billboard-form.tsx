@@ -1,17 +1,13 @@
 "use client";
 
 import { useState } from "react";
-
 import { useParams, useRouter } from "next/navigation";
-
 import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-import { Billboard } from "@prisma/client";
-
 import { Trash } from "lucide-react";
+import { toast } from "sonner"
 
 import Heading from "@/components/ui/heading";
 import ImageUpload from "@/components/ui/images-upload";
@@ -19,7 +15,6 @@ import AlertModal from "@/components/modals/alert-modal";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { toast } from "sonner"
 
 import {
   Form,
@@ -29,6 +24,7 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form";
+import { Billboard } from "@/servers/db/schema";
 
 
 interface BillboardFormProps {
@@ -36,8 +32,8 @@ interface BillboardFormProps {
 }
 
 const formSchema = z.object({
-  label: z.string().min(1),
-  imageUrl: z.string().min(1),
+  label: z.string().min(1).optional(),
+  imageUrl: z.string().min(1).optional(),
 });
 
 type BillboardFormValues = z.infer<typeof formSchema>;
@@ -54,14 +50,13 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
   const toastMesage = initialData ? "Billboard updated" : "Billboard created";
   const action = initialData ? "Save changes" : "Create";
 
-
   const form = useForm<BillboardFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       label: "",
       imageUrl: ""
     }
-  });
+});
 
   const onSubmit = async (values: BillboardFormValues) => {
     try {

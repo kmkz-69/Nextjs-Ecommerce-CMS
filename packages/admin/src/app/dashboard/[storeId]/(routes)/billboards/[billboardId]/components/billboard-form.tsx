@@ -24,7 +24,7 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form";
-import { Billboard } from "@/servers/db/schema";
+import { Billboard } from "@/server/db/schema";
 
 
 interface BillboardFormProps {

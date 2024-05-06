@@ -4,8 +4,8 @@ import { desc, eq } from "drizzle-orm";
 import { formatter } from '@/lib/utils';
 import OrderClient from './components/client'
 import { OrderColumn } from './components/columns';
-import { db } from "@/servers/db";
-import { type OrderItems, orderItems, orders, products, stores } from "@/servers/db/schema";
+import { db } from "@/server/db";
+import { type OrderItems, orderItems, orders, products, stores } from "@/server/db/schema";
 
 export default async function OrdersPage({ params }: { params: { storeId: string } }) {
 

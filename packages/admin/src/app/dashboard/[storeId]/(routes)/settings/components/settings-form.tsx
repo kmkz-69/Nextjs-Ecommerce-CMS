@@ -23,7 +23,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Stores } from "@/servers/db/schema";
+import { Stores } from "@/server/db/schema";
 
 interface SettingsFormProps {
   initialData: Stores;

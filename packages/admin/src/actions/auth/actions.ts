@@ -7,11 +7,11 @@ import { generateId, Scrypt } from "lucia";
 import { isWithinExpirationDate, TimeSpan, createDate } from "oslo";
 import { generateRandomString, alphabet } from "oslo/crypto";
 import { eq } from "drizzle-orm";
-import { emailVerificationCodes, passwordResetTokens, users } from "@/servers/db/schema";
+import { emailVerificationCodes, passwordResetTokens, users } from "@/server/db/schema";
 import { type LoginInput, loginSchema, signupSchema, type SignupInput, resetPasswordSchema } from "@/lib/validators/auth";
 import { sendMail, EmailTemplate } from "@/lib/email";
-import { db } from "@/servers/db";
-import { lucia } from "@/servers/auth";
+import { db } from "@/server/db";
+import { lucia } from "@/server/auth";
 import { env } from "@/env";
 import { validateRequest } from "@/lib/validators/validate-request";
 

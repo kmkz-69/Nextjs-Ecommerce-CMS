@@ -1,6 +1,6 @@
 import { validateRequest } from "@/lib/validators/validate-request";
-import { db } from "@/servers/db";
-import { stores } from "@/servers/db/schema";
+import { db } from "@/server/db";
+import { stores } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 

@@ -24,7 +24,4 @@ export async function middleware(request: NextRequest): Promise<NextResponse> {
 
 export const config = {
   matcher: ["/((?!.+\\.[\\w]+$|_next).*)", "/", "/(api|trpc)(.*)"],
-  // matcher: [
-  //   "/((?!api|static|.*\\..*|_next|favicon.ico|sitemap.xml|robots.txt).*)",
-  // ],
 };

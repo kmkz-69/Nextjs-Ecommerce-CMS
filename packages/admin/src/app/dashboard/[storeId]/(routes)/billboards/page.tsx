@@ -3,8 +3,8 @@ import { format } from "date-fns"
 
 import BillboardClient from './components/client'
 import { BillboardColumn } from './components/columns';
-import { db } from "@/servers/db";
-import { billboards } from "@/servers/db/schema";
+import { db } from "@/server/db";
+import { billboards } from "@/server/db/schema";
 import { desc, eq } from "drizzle-orm";
 
 export default async function BillboardsPage({ params }: { params: { storeId: string } }) {

@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import BillboardForm from "./components/billboard-form";
-import { billboards } from "@/servers/db/schema";
-import { db } from "@/servers/db";
+import { billboards } from "@/server/db/schema";
+import { db } from "@/server/db";
 
 export default async function BillboardPage({ params }:
   { params: { billboardId: string } }

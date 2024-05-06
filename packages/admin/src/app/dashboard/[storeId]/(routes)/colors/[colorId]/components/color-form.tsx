@@ -23,7 +23,7 @@ import {
   FormLabel,
   FormMessage
 } from "@/components/ui/form";
-import { Colors } from "@/servers/db/schema";
+import { Colors } from "@/server/db/schema";
 
 
 interface ColorFormProps {

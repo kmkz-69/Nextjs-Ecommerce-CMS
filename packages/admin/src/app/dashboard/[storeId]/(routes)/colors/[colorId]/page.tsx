@@ -1,5 +1,5 @@
-import { db } from "@/servers/db";
-import { colors } from "@/servers/db/schema";
+import { db } from "@/server/db";
+import { colors } from "@/server/db/schema";
 import { eq } from "drizzle-orm";
 import ColorForm from "./components/color-form";
 

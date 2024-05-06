@@ -2,8 +2,8 @@ import { redirect } from "next/navigation";
 
 import Navbar from "@/components/navbar";
 import { validateRequest } from "@/lib/validators/validate-request";
-import { db } from "@/servers/db";
-import { stores } from "@/servers/db/schema";
+import { db } from "@/server/db";
+import { stores } from "@/server/db/schema";
 import { and, eq } from "drizzle-orm";
 
 export default async function DashboardLayout({

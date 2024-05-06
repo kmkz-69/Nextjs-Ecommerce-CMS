@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import SettingsForm from "./components/settings-form";
 import { validateRequest } from "@/lib/validators/validate-request";
-import { db } from "@/servers/db";
-import { stores } from "@/servers/db/schema";
+import { db } from "@/server/db";
+import { stores } from "@/server/db/schema";
 import { and, eq } from "drizzle-orm";
 
 interface SettingPageProps {

@@ -35,20 +35,18 @@ export const users = pgTable(
         discordIdx: index("user_discord_idx").on(t.discordId),
     }),
 );
-export const sessions = pgTable(
-    "sessions",
-    {
-        id: varchar("id", { length: 255 }).primaryKey(),
-        userId: varchar("user_id", { length: 21 }).notNull(),
-        expiresAt: timestamp("expires_at", { withTimezone: true, mode: "date" }).notNull(),
-    },
+
+export const sessions = pgTable("sessions", {
+    id: varchar("id", { length: 255 }).primaryKey(),
+    userId: varchar("user_id", { length: 21 }).notNull(),
+    expiresAt: timestamp("expires_at", { withTimezone: true, mode: "date" }).notNull(),
+},
     (t) => ({
         userIdx: index("session_user_idx").on(t.userId),
     }),
 );
 
-export const emailVerificationCodes = pgTable(
-    "email_verification_codes",
+export const emailVerificationCodes = pgTable("email_verification_codes",
     {
         id: serial("id").primaryKey(),
         userId: varchar("user_id", { length: 21 }).unique().notNull(),
@@ -62,8 +60,7 @@ export const emailVerificationCodes = pgTable(
     }),
 );
 
-export const passwordResetTokens = pgTable(
-    "password_reset_tokens",
+export const passwordResetTokens = pgTable("password_reset_tokens",
     {
         id: varchar("id", { length: 40 }).primaryKey(),
         userId: varchar("user_id", { length: 21 }).notNull(),
@@ -160,6 +157,10 @@ export const colors = pgTable("colors", {
     name: varchar("name", { length: 255 }),
     value: varchar("value", { length: 255 }),
 });
+
+export const colorsRelations = relations(colors, ({ many }) => ({
+    products: many(products)
+}));
 
 export const images = pgTable("images", {
     id: uuid("id").defaultRandom().primaryKey(),

@@ -79,6 +79,8 @@ export const stores = pgTable("stores", {
     updatedAt: timestamp("updated_at").defaultNow(),
 });
 
+export type Stores = typeof stores.$inferSelect;
+
 export const storeRelation = relations(stores, ({ many }) => ({
     billboards: many(billboards),
     categories: many(categories),

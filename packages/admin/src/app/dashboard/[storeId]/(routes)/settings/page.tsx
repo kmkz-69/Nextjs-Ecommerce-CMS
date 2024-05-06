@@ -1,7 +1,9 @@
-import prisma from "@/lib/prismadb";
-import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import SettingsForm from "./components/settings-form";
+import { validateRequest } from "@/lib/validators/validate-request";
+import { db } from "@/servers/db";
+import { stores } from "@/servers/db/schema";
+import { and, eq } from "drizzle-orm";
 
 interface SettingPageProps {
   params: {
@@ -10,18 +12,15 @@ interface SettingPageProps {
 }
 
 export default async function SettingsPage({ params }: SettingPageProps) {
-  const { userId } = auth();
+  const { user } = await validateRequest();
 
-  if (!userId) {
-    redirect("/sign-in")
+  if (!user) {
+    redirect("/login")
   }
 
-  const store = await prisma.store.findFirst({
-    where: {
-      id: params.storeId,
-      userId
-    }
-  })
+  const store = (await db.select().from(stores)
+    .where(and(eq(stores.id, params.storeId), eq(stores.userId, user.id)))
+    .limit(1))[0];
 
   if (!store) {
     redirect("/");

@@ -2,38 +2,31 @@
 
 import { useState } from "react";
 import { useOrigin } from "@/hooks/use-origin";
-
 import { useParams, useRouter } from "next/navigation";
-
 import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-
-import { Store } from "@prisma/client";
-
+import { toast } from "sonner";
 import { Trash } from "lucide-react";
-
 import Heading from "@/components/ui/heading";
 import AlertModal from "@/components/modals/alert-modal";
 import ApiAlert from "@/components/ui/api-alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { toast } from "sonner"
-
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage
+  FormMessage,
 } from "@/components/ui/form";
-
+import { Stores } from "@/servers/db/schema";
 
 interface SettingsFormProps {
-  initialData: Store;
+  initialData: Stores;
 }
 
 const formSchema = z.object({
@@ -52,7 +45,9 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
 
   const form = useForm<SettingsFormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: initialData
+    defaultValues: {
+      name: initialData.name ?? undefined,
+    },
   });
 
   const onSubmit = async (values: SettingsFormValues) => {
@@ -60,52 +55,40 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
       setLoading(true);
       await axios.patch(`/api/stores/${params.storeId}`, values);
       router.refresh();
-      toast.success('Store updated.');
+      toast.success("Store updated.");
     } catch (error: any) {
-      toast.error('Something went wrong.');
+      toast.error("Something went wrong.");
     } finally {
       setLoading(false);
     }
-  }
+  };
 
   const onDelete = async () => {
     try {
       setLoading(true);
       await axios.delete(`/api/stores/${params.storeId}`);
       router.refresh();
-      router.push('/');
-      toast.success('Store deleted.');
+      router.push("/");
+      toast.success("Store deleted.");
     } catch (error: any) {
-      toast.error('Make sure you removed all products and categories first.');
+      toast.error("Make sure you removed all products and categories first.");
     } finally {
       setLoading(false);
       setOpen(false);
     }
-  }
+  };
 
   return (
     <>
       <div className="flex items-center justify-between">
-        <Heading
-          title="Settings"
-          description="Manage store preferences"
-        />
-        <Button
-          variant="destructive"
-          size="icon"
-          onClick={() => setOpen(true)}
-        >
-          <Trash
-            className="h-4 w-4"
-          />
+        <Heading title="Settings" description="Manage store preferences" />
+        <Button variant="destructive" size="icon" onClick={() => setOpen(true)}>
+          <Trash className="h-4 w-4" />
         </Button>
       </div>
       <Separator />
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-8 w-full"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
           <div className="grid grid-cols-3 gap-8">
             <FormField
               control={form.control}
@@ -121,11 +104,7 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
               )}
             />
           </div>
-          <Button
-            disabled={loading}
-            type="submit"
-            className="ml-auto"
-          >
+          <Button disabled={loading} type="submit" className="ml-auto">
             Save changes
           </Button>
         </form>
@@ -143,5 +122,5 @@ export default function SettingsForm({ initialData }: SettingsFormProps) {
         onConfirm={onDelete}
       />
     </>
-  )
+  );
 }

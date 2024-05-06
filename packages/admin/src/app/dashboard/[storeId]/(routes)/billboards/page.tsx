@@ -1,27 +1,25 @@
-import prisma from '@/lib/prismadb'
 
 import { format } from "date-fns"
 
 import BillboardClient from './components/client'
 import { BillboardColumn } from './components/columns';
+import { db } from "@/servers/db";
+import { billboards } from "@/servers/db/schema";
+import { desc, eq } from "drizzle-orm";
 
 export default async function BillboardsPage({ params }: { params: { storeId: string } }) {
-  const billboards = await prisma.billboard.findMany({
-    where: {
-      storeId: params.storeId
-    },
-    orderBy: {
-      createdAt: 'desc'
-    }
-  });
 
-  const formattedBillboards: BillboardColumn[] = billboards.map((item) => (
-    {
+  const billboard = await db.select().from(billboards)
+    .where(eq(billboards.storeId, params.storeId))
+    .orderBy(desc(billboards.createdAt));
+
+
+    const formattedBillboards: BillboardColumn[] = billboard.map((item) => ({
       id: item.id,
-      label: item.label,
-      createdAt: format(item.createdAt, "MMMM do, yyyy")
-    }
-  ))
+      label: item.label ?? '',
+      createdAt: format(item.createdAt ?? new Date(), "MMMM do, yyyy"),
+    }));
+
 
   return (
     <div className='flex flex-col'>

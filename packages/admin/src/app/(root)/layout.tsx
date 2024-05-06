@@ -1,28 +1,25 @@
-// import { auth } from "@clerk/nextjs";
+import { validateRequest } from "@/lib/validators/validate-request";
+import { db } from "@/servers/db";
+import { stores } from "@/servers/db/schema";
+import { eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
-// import prisma from "@/lib/prismadb";
-
-export default async function SetUpLayout({
-  children,
-}: {
-  children: React.ReactNode,
+export default async function SetUpLayout({ children }: {
+  children: React.ReactNode
 }) {
-  // const { userId } = auth();
+  const { user } = await validateRequest()
 
-  // if (!userId) {
-  //   redirect("/sign-in")
-  // };
+  if (!user) {
+    redirect("/login")
+  };
 
-  // const store = await prisma.store.findFirst({
-  //   where: {
-  //     userId
-  //   }
-  // });
+  const store = await db.select().from(stores)
+    .where(eq(stores.userId, user.id))
+    .limit(1);
 
-  // if (store) {
-  //   redirect(`/${store.id}`);
-  // };
+  if (store) {
+    redirect(`/${store[0]?.id}`);
+  };
 
   return (
     <>

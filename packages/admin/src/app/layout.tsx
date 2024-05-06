@@ -8,25 +8,25 @@ import { Toaster } from "@/components/ui/sonner"
 import "@/styles/globals.css";
 
 
+
 export const metadata: Metadata = {
   title: "Admin Dashboard",
   description: "Admin panel for an E-Commerce store built with Nextjs and TailwindCSS",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <ModalProvider />
-            <Toaster richColors />
-            {children}
-          </ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ModalProvider />
+          <Toaster richColors />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

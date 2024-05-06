@@ -13,20 +13,21 @@ export const metadata: Metadata = {
   description: "Admin panel for an E-Commerce store built with Nextjs and TailwindCSS",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
-      <html lang="en" suppressHydrationWarning>
-        <body>
-          <ThemeProvider attribute="class"  defaultTheme="system" enableSystem>
+    <html lang="en" suppressHydrationWarning>
+      <body>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <ModalProvider />
             <Toaster richColors />
             {children}
           </ThemeProvider>
-        </body>
-      </html>
+      </body>
+    </html>
   );
 }
